@@ -18,7 +18,7 @@ Any issues: try to remove volumes by -> `docker volume rm`
 
 /backend $ `docker build -t goals-node .`
 
-/backend $ `docker run -d --rm --name goals-backend -p 80:80 -v logs:/app/logs --network goals-net goals-node`
+/backend $ `docker run -d --rm --name goals-backend -p 80:80 -v /Users/sharan/Desktop/Sharan/Git/multi-01-starting-setup/backend:/app -v logs:/app/logs -v /app/node_modules --network goals-net goals-node`
 
 ---
 
