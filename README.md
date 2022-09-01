@@ -26,4 +26,4 @@ Any issues: try to remove volumes by -> `docker volume rm`
 
 /frontend $ `docker build -t goals-react .`
 
-/frontend $ `docker run -d --rm -p 3000:3000 --name goals-frontend --network goals-net goals-react`
+/frontend $ `docker run -d --rm -p 3000:3000 --name goals-frontend -v /Users/sharan/Desktop/Sharan/Git/multi-01-starting-setup/frontend/src:/app/src --network goals-net goals-react`
