@@ -8,7 +8,9 @@
 
 ### MongoDB
 
-/ $ `docker run -d --rm --name mongodb --network goals-net mongo`
+/ $ `docker run -d --rm --name mongodb -v data:/data/db --network goals-net -e MONGO_INITDB_ROOT_USERNAME=sharan -e MONGO_INITDB_ROOT_PASSWORD=password mongo`
+
+Any issues: try to remove volumes by -> `docker volume rm`
 
 ---
 
