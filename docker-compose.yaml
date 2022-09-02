@@ -1,0 +1,55 @@
+# --rm and -d flags are not needed in docker-compose file.
+# Once, we stop the docker compose services, it will automatically remove containers.
+# -d flag should be specified in runtime.
+
+version: "3.8"
+services:
+  # MongoDB service
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: sharan
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  # Backend - NodeJS service
+  backend:
+    # The below one is shorthand.
+    # The below one take Dockerfile inside the ./backend folder by default and build it.
+    # build: ./backend
+
+    # We can specify different file name of dockerfile also like below.
+    # If you have dockerfile with different name, then this would be a better option.
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: goals-backend
+    ports:
+      - "80:80"
+    volumes:
+      - ./backend:/app
+      - logs:/app/logs
+      - /app/node_modules
+    environment:
+      - MONGODB_USERNAME=sharan
+      - MONGODB_PASSWORD=password
+    depends_on:
+      - mongodb
+
+  # Frontend - React service
+  frontend:
+    build: ./frontend
+    container_name: goals-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+    depends_on:
+      - backend
+
+# we are specifying explicitly to docker compose, that this is an named volume.
+volumes:
+  data:
+  logs:
