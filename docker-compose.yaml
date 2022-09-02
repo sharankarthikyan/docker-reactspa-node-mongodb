@@ -10,9 +10,8 @@ services:
     container_name: mongodb
     volumes:
       - data:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: sharan
-      MONGO_INITDB_ROOT_PASSWORD: password
+    env_file:
+      - ./env/mongodb.env
 
   # Backend - NodeJS service
   backend:
@@ -32,9 +31,8 @@ services:
       - ./backend:/app
       - logs:/app/logs
       - /app/node_modules
-    environment:
-      - MONGODB_USERNAME=sharan
-      - MONGODB_PASSWORD=password
+    env_file:
+      - ./env/backend.env
     depends_on:
       - mongodb
 
